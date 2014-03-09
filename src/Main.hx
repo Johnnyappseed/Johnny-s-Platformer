@@ -1,8 +1,15 @@
 package ;
 
 import flash.display.Sprite;
-import flash.events.Event;
 import flash.Lib;
+import openfl.Assets;
+import flash.events.Event;
+//import motion.Actuate;
+import flash.events.MouseEvent;
+//import motion.easing.Elastic;
+//import flash.media.Sound;
+//import flash.media.SoundChannel;
+//import flash.media.SoundTransform;
 
 /**
  * ...
@@ -11,7 +18,9 @@ import flash.Lib;
 
 class Main extends Sprite 
 {
-	var inited:Bool;
+
+	var inited = false;
+	var gameCanvas:GameCanvas;
 
 	/* ENTRY POINT */
 	
@@ -25,16 +34,12 @@ class Main extends Sprite
 	{
 		if (inited) return;
 		inited = true;
+		
+		gameCanvas = new GameCanvas();
+		this.addChild(gameCanvas);
 
-		// (your code here)
-		
-		// Stage:
-		// stage.stageWidth x stage.stageHeight @ stage.dpiScale
-		
-		// Assets:
-		// nme.Assets.getBitmapData("img/assetname.jpg");
 	}
-
+	
 	/* SETUP */
 
 	public function new() 

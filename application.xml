@@ -3,12 +3,12 @@
 	<!-- NMML reference: https://gist.github.com/1763850 -->
 	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="The_1001" package="The1001" version="1.0.0" company="Johnnyappseed" />
+	<meta title="ActuateExample" package="ActuateExample" version="1.0.0" company="Nicholas Seward" />
 	
 	<!-- output -->
-	<app main="Main" file="The1001" path="bin" />
+	<app main="Main" file="ActuateExample" path="bin" />
 	
-	<window background="#000000" fps="60" />
+	<window background="#CCCCFF" fps="60" />
 	<window width="800" height="480" unless="mobile" />
 	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
 	
@@ -17,9 +17,11 @@
 	<haxelib name="openfl" />
 	<haxelib name="actuate" />
 	
+	
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />
 	<assets path="assets/img" rename="img" />
+	<assets path="assets/music" rename="music" />
 	
 	<!-- optimize output
 	<haxeflag name="-dce full" /> -->
