@@ -140,7 +140,7 @@ class Dude extends Sprite
 		
 		this.vy += .1;
 		
-		this.vx *= .95;
+		this.vx *= .94;
 		//this.vy *= .6;
 		//if (Math.abs(this.vy) < .01) this.vy = 0;
 		//if (Math.abs(this.vx) < .01) this.vx = 0;
