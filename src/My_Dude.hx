@@ -23,8 +23,11 @@ class My_Dude extends Sprite
 	var floatx:Float;
 	var floaty:Float;
 	var airJumpCount:Int;
-	//var image:BitmapData;
+	var image_Sprite:Sprite;
 	var count:Int;
+	var hitSprite:Sprite;
+	var spin:Float;
+	var rotate:Int;
 	
 	
 	public function new() 
@@ -33,27 +36,30 @@ class My_Dude extends Sprite
 		
 		super();
 		var image = new Bitmap(Assets.getBitmapData("img/gear_a.png"));
+		spin = 0;
 		image.x = -20;
 		image.y = -20;
-		//image.width = 40;
-		//image.height = 40;
-		this.addChild(image);
-		this.graphics.beginFill(0xFF0000);
+		image.width = 40;
+		image.height = 40;
+		image_Sprite = new Sprite();
+		image_Sprite.addChild(image);
+		this.addChild(image_Sprite);
+		//this.graphics.beginFill(0xFF0000);
 		//this.graphics.drawRoundRect( -20, -20, 40, 40, 4);
 		//this.graphics.drawCircle(0, 0, 21);
 		this.x = 100;
-		this.y = 100;
+		//this.y = 100;
 		this.floatx = this.x;
 		this.floaty = this.y;
 		vx = 0;
 		vy = 0;
 		airJumpCount = 0;
 		count = 0;
-		//var s = new Sprite();
-		//s.graphics.beginFill(0x00FF00);
-		//s.graphics.drawCircle(0, 0, 2);
-		//s.mouseEnabled = false;
-		//this.hitArea = s;
+		hitSprite = new Sprite();
+		//hitSprite.graphics.beginFill(0x00FF00);
+		hitSprite.graphics.drawCircle(0, 0, 19);
+		hitSprite.mouseEnabled = false;
+		this.addChild(hitSprite);
 		
 	}
 	
@@ -87,7 +93,7 @@ class My_Dude extends Sprite
 
 		for (platform in GameCanvas.game.platforms)
 		{
-			if (this.hitTestObject(platform))
+			if (hitSprite.hitTestObject(platform))
 			{
 				return true;
 			}
@@ -116,7 +122,8 @@ class My_Dude extends Sprite
 		//this.graphics.beginBitmapFill(image,m);
 		//this.graphics.drawRect(0, 0, 56, 80);
 		
-		if (onGround()) trace("ground");
+		onGround();
+		//trace("ground");
 		//trace(airJumpCount);
 		
 		
@@ -141,6 +148,9 @@ class My_Dude extends Sprite
 		this.vy += .1;
 		
 		this.vx *= .95;
+		spin = vx;
+		rotate += Std.int(spin*1.9);
+		image_Sprite.rotation = rotate;
 		//this.vy *= .6;
 		//if (Math.abs(this.vy) < .01) this.vy = 0;
 		//if (Math.abs(this.vx) < .01) this.vx = 0;

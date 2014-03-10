@@ -23,15 +23,18 @@ class GameCanvas extends Sprite
 		platforms = new Array<Platform>();
 		dude = new My_Dude();
 		this.addChild(dude);
-		var p = new Platform(10, 400, 600, 10);
+		var p = new Platform(50,500,150,1);
 		platforms.push(p);
 		this.addChild(p);
-		p = new Platform(10, 10, 10, 600);
+		p = new Platform(50,500,150,2);
 		platforms.push(p);
 		this.addChild(p);
-		p = new Platform(1000, 10, 10, 1000);
-		platforms.push(p);
-		this.addChild(p);
+		//p = new Platform(10, 10, 10, 600);
+		//platforms.push(p);
+		//this.addChild(p);
+		//p = new Platform(1000, 10, 10, 1000);
+		//platforms.push(p);
+		//this.addChild(p);
 		game = this;
 		
 		keys = new Array<Int>();
