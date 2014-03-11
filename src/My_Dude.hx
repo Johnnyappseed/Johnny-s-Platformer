@@ -144,6 +144,13 @@ class My_Dude extends Sprite
 			this.x = Std.int(this.floatx);
 			this.vx = 0;
 		}
+		//trace(this.y + GameCanvas.game.y);
+		if (this.y + GameCanvas.game.y > 460)
+		{
+			this.floaty -= this.vy;
+			this.y = Std.int(this.floaty);
+			this.vy = 0;
+		}
 		
 		this.vy += .1;
 		

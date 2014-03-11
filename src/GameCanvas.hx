@@ -22,23 +22,23 @@ class GameCanvas extends Sprite
 	public function new() 
 	{
 		super();
-		speed = 40;
+		speed = 90;
 		counter = 0;
 		platforms = new Array<Platform>();
 		dude = new My_Dude();
 		this.addChild(dude);
-		var p = new Platform(100,300,100,1);
-		platforms.push(p);
-		this.addChild(p);
-		p = new Platform(100,300,100,2);
-		platforms.push(p);
-		this.addChild(p);
-		var p = new Platform(100,300,100,3);
-		platforms.push(p);
-		this.addChild(p);
-		p = new Platform(100,300,100,4);
-		platforms.push(p);
-		this.addChild(p);
+		//var p = new Platform(100,300,100,1);
+		//platforms.push(p);
+		//this.addChild(p);
+		//p = new Platform(100,300,100,2);
+		//platforms.push(p);
+		//this.addChild(p);
+		//var p = new Platform(100,300,100,3);
+		//platforms.push(p); 
+		//this.addChild(p);
+		//p = new Platform(100,300,100,4);
+		//platforms.push(p);
+		//this.addChild(p);
 		game = this;
 		
 		keys = new Array<Int>();
@@ -50,11 +50,11 @@ class GameCanvas extends Sprite
 		counter += 1;
 		dude.act();
 		//this.x = -dude.x + 200;
-		this.y = -dude.y + 200;
+		this.y = this.y-1;
 		
 		if (counter % speed == 0)
 		{
-			trace(this.y);
+			//trace(dude.y+this.y);
 			var p = new Platform(-(this.y-480),300,100,1);
 			platforms.push(p);
 			this.addChild(p);
