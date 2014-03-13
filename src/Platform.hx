@@ -35,4 +35,13 @@ class Platform extends Sprite
 		this.y = y;
 	}
 	
+	public function refresh(y:Float)
+	{
+		if (y - this.y > 480)
+		{
+			GameCanvas.game.platforms.remove(this);
+			GameCanvas.game.removeChild(this);
+		}
+	}
+	
 }

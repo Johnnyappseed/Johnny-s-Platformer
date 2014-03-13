@@ -35,7 +35,7 @@ class My_Dude extends Sprite
 		//var spritesheet:spritesheet = BitmapImporter.create(Assets.getBitmapData("img/kit_from_firefox.png"), 3, 9, 56, 80);
 		
 		super();
-		var image = new Bitmap(Assets.getBitmapData("img/gear_a.png"));
+		var image = new Bitmap(Assets.getBitmapData("img/C_Wheel_a.png"));
 		spin = 0;
 		image.x = -20;
 		image.y = -20;

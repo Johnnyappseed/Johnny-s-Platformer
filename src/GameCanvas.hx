@@ -48,6 +48,11 @@ class GameCanvas extends Sprite
 	public function act(e:Event):Void
 	{
 		counter += 1;
+		var platformY = -(this.y - 480);
+		for (platform in platforms)
+		{
+			platform.refresh(platformY);
+		}
 		dude.act();
 		//this.x = -dude.x + 200;
 		this.y = this.y-1;
@@ -55,16 +60,17 @@ class GameCanvas extends Sprite
 		if (counter % speed == 0)
 		{
 			//trace(dude.y+this.y);
-			var p = new Platform(-(this.y-480),300,100,1);
+			var randomX = (Std.int(Math.random() * 720) + 40);
+			var p = new Platform(platformY,randomX,100,1);
 			platforms.push(p);
 			this.addChild(p);
-			p = new Platform(-(this.y-480),300,100,2);
+			p = new Platform(platformY,randomX,100,2);
 			platforms.push(p);
 			this.addChild(p);
-			var p = new Platform(-(this.y-480),300,100,3);
+			var p = new Platform(platformY,randomX,100,3);
 			platforms.push(p);
 			this.addChild(p);
-			p = new Platform(-(this.y-480),300,100,4);
+			p = new Platform(platformY,randomX,100,4);
 			platforms.push(p);
 			this.addChild(p);
 		}
