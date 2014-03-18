@@ -21,6 +21,8 @@ class Main extends Sprite
 
 	var inited = false;
 	var gameCanvas:GameCanvas;
+	var menu:Menu;
+	public static var Bmain:Main;
 
 	/* ENTRY POINT */
 	
@@ -34,10 +36,6 @@ class Main extends Sprite
 	{
 		if (inited) return;
 		inited = true;
-		
-		gameCanvas = new GameCanvas();
-		this.addChild(gameCanvas);
-
 	}
 	
 	/* SETUP */
@@ -45,7 +43,24 @@ class Main extends Sprite
 	public function new() 
 	{
 		super();	
+		Bmain = this;
+		gameCanvas = new GameCanvas();
+		//this.addChild(gameCanvas);
+		
+		menu = new Menu();
+		this.addChild(menu);
+		
 		addEventListener(Event.ADDED_TO_STAGE, added);
+	}
+	
+	public function play()
+	{
+		
+	}
+	
+	public function restart()
+	{
+		
 	}
 
 	function added(e) 

@@ -37,7 +37,7 @@ class Platform extends Sprite
 	
 	public function refresh(y:Float)
 	{
-		if (y - this.y > 480)
+		if (y - this.y > 500)
 		{
 			GameCanvas.game.platforms.remove(this);
 			GameCanvas.game.removeChild(this);

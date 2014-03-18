@@ -65,12 +65,12 @@ class My_Dude extends Sprite
 	
 	public function left()
 	{
-		this.vx -= .2;
+		this.vx -= .3;
 	}
 	
 	public function right()
 	{
-		this.vx += .2;
+		this.vx += .3;
 	}
 	
 	public function jump()
@@ -144,12 +144,16 @@ class My_Dude extends Sprite
 			this.x = Std.int(this.floatx);
 			this.vx = 0;
 		}
-		//trace(this.y + GameCanvas.game.y);
 		if (this.y + GameCanvas.game.y > 460)
 		{
 			this.floaty -= this.vy;
 			this.y = Std.int(this.floaty);
 			this.vy = 0;
+		}
+		
+		if (this.y + GameCanvas.game.y < 10)
+		{
+			Main.Bmain.restart();
 		}
 		
 		this.vy += .1;
