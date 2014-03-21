@@ -13,6 +13,7 @@ class GameCanvas extends Sprite
 {
 
 	public var dude:My_Dude;
+	var score:Score;
 	var keys:Array<Int>;
 	public var platforms:Array<Platform>;
 	public static var game:GameCanvas;
@@ -26,6 +27,7 @@ class GameCanvas extends Sprite
 		counter = 0;
 		platforms = new Array<Platform>();
 		dude = new My_Dude();
+		score = new Score();
 		this.addChild(dude);
 		//var p = new Platform(100,300,100,1);
 		//platforms.push(p);
@@ -42,7 +44,6 @@ class GameCanvas extends Sprite
 		game = this;
 		
 		keys = new Array<Int>();
-		enable();
 	}
 	
 	public function act(e:Event):Void
@@ -76,12 +77,17 @@ class GameCanvas extends Sprite
 		}
 		if (keyCheck(37)) dude.left();
 		if (keyCheck(39)) dude.right();
+		
+	}
+	
+	public function died()
+	{
+		Main.Bmain.died();
 	}
 	
 	public function keyDown(e:KeyboardEvent):Void
 	{
 		if (! keyCheck(e.keyCode)) keys.push(e.keyCode);
-		if (38==e.keyCode) dude.jump();
 	}
 	
 	
@@ -98,6 +104,20 @@ class GameCanvas extends Sprite
 		}
 		return false;
 		
+	}
+	
+	public function restart()
+	{
+		this.y = 0;
+		speed = 90;
+		counter = 0;
+		score.restart();
+		dude.restart();
+		for (platform in platforms)
+		{
+			platforms.remove(platform);
+			this.removeChild(platform);
+		}
 	}
 	
 	public function disable()

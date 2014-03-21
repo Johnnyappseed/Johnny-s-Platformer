@@ -22,12 +22,12 @@ class My_Dude extends Sprite
 	var vy:Float;
 	var floatx:Float;
 	var floaty:Float;
-	var airJumpCount:Int;
 	var image_Sprite:Sprite;
 	var count:Int;
 	var hitSprite:Sprite;
 	var spin:Float;
 	var rotate:Int;
+	var image:Bitmap;
 	
 	
 	public function new() 
@@ -35,7 +35,7 @@ class My_Dude extends Sprite
 		//var spritesheet:spritesheet = BitmapImporter.create(Assets.getBitmapData("img/kit_from_firefox.png"), 3, 9, 56, 80);
 		
 		super();
-		var image = new Bitmap(Assets.getBitmapData("img/C_Wheel_a.png"));
+		image = new Bitmap(Assets.getBitmapData("img/C_Wheel_a.png"));
 		spin = 0;
 		image.x = -20;
 		image.y = -20;
@@ -48,12 +48,11 @@ class My_Dude extends Sprite
 		//this.graphics.drawRoundRect( -20, -20, 40, 40, 4);
 		//this.graphics.drawCircle(0, 0, 21);
 		this.x = 100;
-		//this.y = 100;
+		this.y = 100;
 		this.floatx = this.x;
 		this.floaty = this.y;
 		vx = 0;
 		vy = 0;
-		airJumpCount = 0;
 		count = 0;
 		hitSprite = new Sprite();
 		//hitSprite.graphics.beginFill(0x00FF00);
@@ -61,6 +60,23 @@ class My_Dude extends Sprite
 		hitSprite.mouseEnabled = false;
 		this.addChild(hitSprite);
 		
+	}
+	
+	public function restart()
+	{
+		image = new Bitmap(Assets.getBitmapData("img/C_Wheel_a.png"));
+		spin = 0;
+		image.x = -20;
+		image.y = -20;
+		image.width = 40;
+		image.height = 40;
+		this.x = 100;
+		this.y = 100;
+		this.floatx = this.x;
+		this.floaty = this.y;
+		vx = 0;
+		vy = 0;
+		count = 0;
 	}
 	
 	public function left()
@@ -71,21 +87,6 @@ class My_Dude extends Sprite
 	public function right()
 	{
 		this.vx += .3;
-	}
-	
-	public function jump()
-	{
-		var v = onGround();
-		if (v)
-		{
-			this.vy = -4;
-			airJumpCount = 0;
-		}
-		else if(airJumpCount<1)
-		{
-			this.vy = -4;
-			airJumpCount += 1;
-		}
 	}
 	
 	public function isColliding()
@@ -124,7 +125,6 @@ class My_Dude extends Sprite
 		
 		onGround();
 		//trace("ground");
-		//trace(airJumpCount);
 		
 		
 		this.floaty += this.vy;
@@ -153,7 +153,8 @@ class My_Dude extends Sprite
 		
 		if (this.y + GameCanvas.game.y < 10)
 		{
-			Main.Bmain.restart();
+			trace(this.y + GameCanvas.game.y);
+			GameCanvas.game.died();
 		}
 		
 		this.vy += .1;

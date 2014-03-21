@@ -10,6 +10,7 @@ import flash.events.MouseEvent;
 //import flash.media.Sound;
 //import flash.media.SoundChannel;
 //import flash.media.SoundTransform;
+import motion.Actuate;
 
 /**
  * ...
@@ -45,7 +46,7 @@ class Main extends Sprite
 		super();	
 		Bmain = this;
 		gameCanvas = new GameCanvas();
-		//this.addChild(gameCanvas);
+		this.addChild(gameCanvas);
 		
 		menu = new Menu();
 		this.addChild(menu);
@@ -55,12 +56,14 @@ class Main extends Sprite
 	
 	public function play()
 	{
-		
+		Actuate.tween(menu, 2, { x:0, y:-481 } );
+		gameCanvas.enable();
+		gameCanvas.restart();
 	}
 	
-	public function restart()
+	public function died()
 	{
-		
+		Actuate.tween(menu, 2, { x:0, y:0 } ).onComplete(gameCanvas.disable);
 	}
 
 	function added(e) 

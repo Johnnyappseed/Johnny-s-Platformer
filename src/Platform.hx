@@ -43,5 +43,4 @@ class Platform extends Sprite
 			GameCanvas.game.removeChild(this);
 		}
 	}
-	
 }
