@@ -22,7 +22,7 @@ class Main extends Sprite
 
 	var inited = false;
 	var gameCanvas:GameCanvas;
-	var menu:Menu;
+	public var menu:Menu;
 	public static var Bmain:Main;
 
 	/* ENTRY POINT */

@@ -3,6 +3,7 @@ import flash.display.Sprite;
 import flash.Lib;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
+import motion.Actuate;
 
 /**
  * ...
@@ -13,52 +14,85 @@ class GameCanvas extends Sprite
 {
 
 	public var dude:My_Dude;
-	var score:Score;
+	public var score:Score;
 	var keys:Array<Int>;
 	public var platforms:Array<Platform>;
 	public static var game:GameCanvas;
-	var speed:Int;
-	var counter:Int;
+	var platSpawnMod:Int;
+	var startPlatSpawnMod:Int;
+	var upSpawnMod:Int;
+	var startUpSpawnMod:Int;
+	var frameCounter:Int;
+	var dropSpeed:Int;
+	public var upgrade:Upgrade;
+	var bomb:Bool;
+	var speed:Bool;
+	var bar:Sprite;
 
 	public function new() 
 	{
 		super();
-		speed = 90;
-		counter = 0;
+		bomb = false;
+		speed = false;
+		dropSpeed = 1;
+		startPlatSpawnMod = 90;
+		platSpawnMod = startPlatSpawnMod;
+		startUpSpawnMod = 600;
+		upSpawnMod = startUpSpawnMod;
+		frameCounter = 0;
 		platforms = new Array<Platform>();
 		dude = new My_Dude();
 		score = new Score();
+		upgrade = new Upgrade(0);
+		bar = new Sprite();
+		var barImage = new Sprite();
+		barImage.graphics.beginFill(0xFF0000);
+		barImage.graphics.drawRoundRect(0, 0, 800, 10, 4);
+		barImage.x = -400;
+		barImage.y = -5;
+		bar.x = 400;
+		bar.y = 5;
+		bar.addChild(barImage);
+		this.addChild(bar);
+		this.addChild(upgrade);
+		this.addChild(score);
 		this.addChild(dude);
-		//var p = new Platform(100,300,100,1);
-		//platforms.push(p);
-		//this.addChild(p);
-		//p = new Platform(100,300,100,2);
-		//platforms.push(p);
-		//this.addChild(p);
-		//var p = new Platform(100,300,100,3);
-		//platforms.push(p); 
-		//this.addChild(p);
-		//p = new Platform(100,300,100,4);
-		//platforms.push(p);
-		//this.addChild(p);
 		game = this;
-		
+		upgrade.y = 500;
 		keys = new Array<Int>();
 	}
 	
 	public function act(e:Event):Void
 	{
-		counter += 1;
+		Main.Bmain.menu.act();
+		dude.act();
+		upgrade.act();
+		this.y = this.y - dropSpeed;
+		score.y = score.y + dropSpeed;
+		bar.y = bar.y + dropSpeed;
+		
+		if (keyCheck(37)) dude.left();
+		if (keyCheck(39)) dude.right();
+		
+		frameCounter += 1;
+		
 		var platformY = -(this.y - 480);
+		
 		for (platform in platforms)
 		{
 			platform.refresh(platformY);
 		}
-		dude.act();
-		//this.x = -dude.x + 200;
-		this.y = this.y-1;
 		
-		if (counter % speed == 0)
+		if (frameCounter % 300 == 0)
+		{
+			this.removeChild(upgrade);
+			upgrade = new Upgrade(Std.int(Math.random() * 2));
+			upgrade.x = Std.int(Math.random() * 720) + 40;
+			upgrade.y = -this.y - 25;
+			this.addChild(upgrade);
+		}
+		
+		if (frameCounter % platSpawnMod == 0)
 		{
 			//trace(dude.y+this.y);
 			var randomX = (Std.int(Math.random() * 720) + 40);
@@ -75,9 +109,51 @@ class GameCanvas extends Sprite
 			platforms.push(p);
 			this.addChild(p);
 		}
-		if (keyCheck(37)) dude.left();
-		if (keyCheck(39)) dude.right();
 		
+		if (bomb == true)
+		{
+			trace("wut" + Std.int(frameCounter));
+			for (plateform in platforms)
+			{
+				if (plateform.killLevel > 100)
+				{
+					plateform.killLevel = plateform.killLevel - 4;
+				}
+				else 
+				{
+					plateform.killLevel = 480;
+					bomb = false;
+				}
+			}
+			bar.y = bar.y + 4;
+			if (platforms.length == 0)
+			{
+				bomb = false;
+			}
+			if (bomb == false)
+			{
+				Actuate.tween(bar, 3,{ y: -this.y+(dropSpeed*60*3)});
+			}
+		}
+		
+		if (Math.abs(dude.x - upgrade.x) < 50 && Math.abs(dude.y - upgrade.y) < 25)
+		{
+			if (upgrade.type == 0)
+			{
+				bomb = true;
+			}
+		}
+		
+	}
+	
+	public function barMotion()
+	{
+		Actuate.transform(bar, .5).color(0x000000, 1).onComplete(afterBar);
+	}
+	
+	function afterBar()
+	{
+		Actuate.transform(bar, .5).color(0xFF0000, 1);
 	}
 	
 	public function died()
@@ -109,13 +185,15 @@ class GameCanvas extends Sprite
 	public function restart()
 	{
 		this.y = 0;
-		speed = 90;
-		counter = 0;
-		score.restart();
+		upSpawnMod = startUpSpawnMod;
+		platSpawnMod = startPlatSpawnMod;
+		frameCounter = 0;
+		score.restart_s(0);
+		score.y = 0;
 		dude.restart();
 		for (platform in platforms)
 		{
-			platforms.remove(platform);
+			this.platforms.remove(platform);
 			this.removeChild(platform);
 		}
 	}

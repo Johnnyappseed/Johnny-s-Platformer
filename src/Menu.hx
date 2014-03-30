@@ -19,6 +19,7 @@ class Menu extends Sprite
 	var titleBox:TextField;
 	var titleFormate:TextFormat;
 	var playBox:TextField;
+	var score:Score;
 	
 	public function new() 
 	{
@@ -51,10 +52,18 @@ class Menu extends Sprite
 		spriteBox.x = 400;
 		spriteBox.y = 300;
 		
+		score = new Score();
+		score.restart_M(GameCanvas.game.score.bestScore);
+		this.addChild(score);
 		
 		spriteBox.addEventListener(MouseEvent.MOUSE_DOWN, play);
 		
 		
+		
+	}
+	public function act()
+	{
+		score.restart_M(GameCanvas.game.score.bestScore);
 	}
 	
 	function play(e)

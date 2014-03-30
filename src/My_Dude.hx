@@ -153,16 +153,17 @@ class My_Dude extends Sprite
 		
 		if (this.y + GameCanvas.game.y < 10)
 		{
-			trace(this.y + GameCanvas.game.y);
+			//trace(this.y + GameCanvas.game.y);
 			GameCanvas.game.died();
 		}
 		
-		this.vy += .1;
+		this.vy += .4;
 		
 		this.vx *= .95;
 		spin = vx;
 		rotate += Std.int(spin*1.9);
 		image_Sprite.rotation = rotate;
+		
 		//this.vy *= .6;
 		//if (Math.abs(this.vy) < .01) this.vy = 0;
 		//if (Math.abs(this.vx) < .01) this.vx = 0;
