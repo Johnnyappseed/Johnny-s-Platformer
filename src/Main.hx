@@ -56,7 +56,7 @@ class Main extends Sprite
 	
 	public function play()
 	{
-		Actuate.tween(menu, 2, { x:0, y:-481 } );
+		Actuate.tween(menu, 2, { x:0, y:-600 } );
 		gameCanvas.enable();
 	}
 	

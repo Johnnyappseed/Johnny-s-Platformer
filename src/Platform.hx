@@ -24,7 +24,7 @@ class Platform extends Sprite
 		}
 		if (part == 2)
 		{
-			this.graphics.drawRoundRect( -10, -50, 10, 50, 10, 4);
+			this.graphics.drawRoundRect( -10, 0, 10, 70, 10, 4);
 		}
 		if (part == 3)
 		{
@@ -32,7 +32,7 @@ class Platform extends Sprite
 		}
 		if (part == 4)
 		{
-			this.graphics.drawRoundRect( 800, -50, 10, 50, 10, 4);
+			this.graphics.drawRoundRect( 800, 0, 10, 70, 10, 4);
 		}
 		this.x = 0;
 		this.y = y;

@@ -29,24 +29,28 @@ class GameCanvas extends Sprite
 	var speed:Bool;
 	var bar:Sprite;
 	var speedTimer:Int;
+	var changeTime:Bool;
+	var changeTimer:Int;
 
 	public function new() 
 	{
 		super();
+		changeTime = false;
+		changeTimer = 0;
 		speedTimer = 0;
 		bomb = false;
 		speed = false;
 		dropSpeed = 1;
 		startPlatSpawnMod = 90;
 		platSpawnMod = startPlatSpawnMod;
-		startUpSpawnMod = 600;
+		startUpSpawnMod = 1000;
 		upSpawnMod = startUpSpawnMod;
 		frameCounter = 0;
 		platforms = new Array<Platform>();
 		dude = new My_Dude();
 		score = new Score();
 		upgrade = new Upgrade(0);
-		upgrade.y = 500;
+		upgrade.y = 550;
 		this.addChild(upgrade);
 		bar = new Sprite();
 		var barImage = new Sprite();
@@ -55,7 +59,7 @@ class GameCanvas extends Sprite
 		barImage.x = -400;
 		barImage.y = -5;
 		bar.x = 400;
-		bar.y = -5;
+		bar.y = 0;
 		bar.addChild(barImage);
 		this.addChild(bar);
 		this.addChild(score);
@@ -66,13 +70,17 @@ class GameCanvas extends Sprite
 	
 	public function act(e:Event):Void
 	{
+		//if (frameCounter % 1200)
+		//{
+			//changeTime = true;
+			//changeTimer = 300;
+		//}
 		Main.Bmain.menu.act();
 		dude.act();
 		upgrade.act();
 		this.y = this.y - dropSpeed;
 		score.y = score.y + dropSpeed;
 		bar.y = bar.y + dropSpeed;
-		
 		
 		frameCounter += 1;
 		
@@ -123,6 +131,10 @@ class GameCanvas extends Sprite
 					bomb = false;
 				}
 			}
+			if (bar.y > -this.y + 400)
+			{
+				bomb = false;
+			}
 			bar.y = bar.y + 4;
 			if (platforms.length == 0)
 			{
@@ -158,9 +170,8 @@ class GameCanvas extends Sprite
 				speed = true;
 				speedTimer = 300;
 			}
-			upgrade.y=-this.y+500;
+			upgrade.y=-this.y+550;
 		}
-		
 	}
 	
 	public function barMotion()

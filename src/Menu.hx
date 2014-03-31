@@ -25,7 +25,6 @@ class Menu extends Sprite
 	{
 		super();
 		
-		//this.graphics.beginFill(0xFFFFFF, 0.8);
 		var spriteBox = new Sprite();
 		titleFormate = new TextFormat();
         titleFormate.font = "Times New Roman";
@@ -55,6 +54,13 @@ class Menu extends Sprite
 		score = new Score();
 		score.restart_M(GameCanvas.game.score.bestScore);
 		this.addChild(score);
+		
+		this.width = 800;
+		this.height = 480;
+		this.x = 0;
+		this.y = 0;
+		this.graphics.beginFill(0x000000, 1.0);
+		this.graphics.drawRect(0, 0,800,480);
 		
 		spriteBox.addEventListener(MouseEvent.MOUSE_DOWN, play);
 		
