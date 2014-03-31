@@ -28,10 +28,12 @@ class GameCanvas extends Sprite
 	var bomb:Bool;
 	var speed:Bool;
 	var bar:Sprite;
+	var speedTimer:Int;
 
 	public function new() 
 	{
 		super();
+		speedTimer = 0;
 		bomb = false;
 		speed = false;
 		dropSpeed = 1;
@@ -44,6 +46,8 @@ class GameCanvas extends Sprite
 		dude = new My_Dude();
 		score = new Score();
 		upgrade = new Upgrade(0);
+		upgrade.y = 500;
+		this.addChild(upgrade);
 		bar = new Sprite();
 		var barImage = new Sprite();
 		barImage.graphics.beginFill(0xFF0000);
@@ -51,14 +55,12 @@ class GameCanvas extends Sprite
 		barImage.x = -400;
 		barImage.y = -5;
 		bar.x = 400;
-		bar.y = 5;
+		bar.y = -5;
 		bar.addChild(barImage);
 		this.addChild(bar);
-		this.addChild(upgrade);
 		this.addChild(score);
 		this.addChild(dude);
 		game = this;
-		upgrade.y = 500;
 		keys = new Array<Int>();
 	}
 	
@@ -71,8 +73,6 @@ class GameCanvas extends Sprite
 		score.y = score.y + dropSpeed;
 		bar.y = bar.y + dropSpeed;
 		
-		if (keyCheck(37)) dude.left();
-		if (keyCheck(39)) dude.right();
 		
 		frameCounter += 1;
 		
@@ -83,7 +83,7 @@ class GameCanvas extends Sprite
 			platform.refresh(platformY);
 		}
 		
-		if (frameCounter % 300 == 0)
+		if (frameCounter % upSpawnMod == 0)
 		{
 			this.removeChild(upgrade);
 			upgrade = new Upgrade(Std.int(Math.random() * 2));
@@ -94,7 +94,6 @@ class GameCanvas extends Sprite
 		
 		if (frameCounter % platSpawnMod == 0)
 		{
-			//trace(dude.y+this.y);
 			var randomX = (Std.int(Math.random() * 720) + 40);
 			var p = new Platform(platformY,randomX,100,1);
 			platforms.push(p);
@@ -112,7 +111,6 @@ class GameCanvas extends Sprite
 		
 		if (bomb == true)
 		{
-			trace("wut" + Std.int(frameCounter));
 			for (plateform in platforms)
 			{
 				if (plateform.killLevel > 100)
@@ -136,12 +134,31 @@ class GameCanvas extends Sprite
 			}
 		}
 		
+		if (speed == true)
+		{
+			speedTimer -= 1;
+			if (speedTimer <= 0)
+			{
+				speed = false;
+			}
+			dude.speedK = .6;
+		}
+		
+		if (keyCheck(37)) dude.left();
+		if (keyCheck(39)) dude.right();
+		
 		if (Math.abs(dude.x - upgrade.x) < 50 && Math.abs(dude.y - upgrade.y) < 25)
 		{
 			if (upgrade.type == 0)
 			{
 				bomb = true;
 			}
+			if (upgrade.type == 1)
+			{
+				speed = true;
+				speedTimer = 300;
+			}
+			upgrade.y=-this.y+500;
 		}
 		
 	}
@@ -196,6 +213,9 @@ class GameCanvas extends Sprite
 			this.platforms.remove(platform);
 			this.removeChild(platform);
 		}
+		upgrade = new Upgrade(0);
+		upgrade.y = 500;
+		this.addChild(upgrade);
 	}
 	
 	public function disable()

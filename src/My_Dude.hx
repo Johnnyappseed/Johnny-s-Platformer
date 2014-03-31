@@ -28,6 +28,7 @@ class My_Dude extends Sprite
 	var spin:Float;
 	var rotate:Int;
 	var image:Bitmap;
+	public var speedK:Float;
 	
 	
 	public function new() 
@@ -35,6 +36,7 @@ class My_Dude extends Sprite
 		//var spritesheet:spritesheet = BitmapImporter.create(Assets.getBitmapData("img/kit_from_firefox.png"), 3, 9, 56, 80);
 		
 		super();
+		speedK = .3;
 		image = new Bitmap(Assets.getBitmapData("img/C_Wheel_a.png"));
 		spin = 0;
 		image.x = -20;
@@ -72,6 +74,8 @@ class My_Dude extends Sprite
 		image.height = 40;
 		this.x = 100;
 		this.y = 100;
+		this.vx = 0;
+		this.vy = 0;
 		this.floatx = this.x;
 		this.floaty = this.y;
 		vx = 0;
@@ -81,12 +85,12 @@ class My_Dude extends Sprite
 	
 	public function left()
 	{
-		this.vx -= .3;
+		this.vx -= speedK;
 	}
 	
 	public function right()
 	{
-		this.vx += .3;
+		this.vx += speedK;
 	}
 	
 	public function isColliding()
@@ -115,6 +119,7 @@ class My_Dude extends Sprite
 	public function act()
 	{
 		count += 1;
+		speedK = .3;
 		
 		//this.graphics.clear();
 		//var m:Matrix = new Matrix();

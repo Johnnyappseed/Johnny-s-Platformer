@@ -51,7 +51,8 @@ class Score extends Sprite
 	
 	public function restart_s(num:Int)
 	{
-		wordBox.text = "Score: " + Std.string(num);
+		score = 0;
+		wordBox.text = "Score: " + Std.string(0);
 		wordBox.setTextFormat(ts);
 	}
 	

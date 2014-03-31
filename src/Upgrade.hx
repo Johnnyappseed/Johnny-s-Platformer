@@ -27,8 +27,8 @@ class Upgrade extends Sprite
 		{
 			image = new Bitmap(Assets.getBitmapData("img/lightning.png"));
 		}
-		image.y = image.y / 2;
-		image.x = image.x / 2;
+		image.y = -image.y / 2;
+		image.x = -image.x / 2;
 		image.height = 60;
 		image.width = 60;
 		this.addChild(image);
