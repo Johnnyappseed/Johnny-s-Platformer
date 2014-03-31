@@ -18,6 +18,7 @@ class Upgrade extends Sprite
 	public function new(type:Int) 
 	{
 		super();
+		var size = 60;
 		this.type = type;
 		if (type == 0)
 		{
@@ -27,12 +28,14 @@ class Upgrade extends Sprite
 		{
 			image = new Bitmap(Assets.getBitmapData("img/lightning.png"));
 		}
-		image.y = -image.y / 2;
-		image.x = -image.x / 2;
-		image.height = 60;
-		image.width = 60;
+		image.y = -size / 2;
+		image.x = -size / 2;
+		image.height = size;
+		image.width = size;
 		this.addChild(image);
 		//this.y = 100;
+		this.width = size;
+		this.height = size;
 	}
 	
 	public function act()

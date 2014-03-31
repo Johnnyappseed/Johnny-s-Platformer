@@ -213,9 +213,11 @@ class GameCanvas extends Sprite
 			this.platforms.remove(platform);
 			this.removeChild(platform);
 		}
+		this.removeChild(upgrade);
 		upgrade = new Upgrade(0);
 		upgrade.y = 500;
 		this.addChild(upgrade);
+		
 	}
 	
 	public function disable()

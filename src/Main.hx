@@ -58,12 +58,13 @@ class Main extends Sprite
 	{
 		Actuate.tween(menu, 2, { x:0, y:-481 } );
 		gameCanvas.enable();
-		gameCanvas.restart();
 	}
 	
 	public function died()
 	{
-		Actuate.tween(menu, 2, { x:0, y:0 } ).onComplete(gameCanvas.disable);
+		Actuate.tween(menu, 2, { x:0, y:0 } );
+		gameCanvas.disable();
+		gameCanvas.restart();
 	}
 
 	function added(e) 
