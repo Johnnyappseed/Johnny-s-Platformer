@@ -31,21 +31,25 @@ class GameCanvas extends Sprite
 	var speedTimer:Int;
 	var changeTime:Bool;
 	var changeTimer:Int;
+	var startPlatColor:Int;
+	var platColor:Int;
 
 	public function new() 
 	{
 		super();
+		startPlatColor = 0xFFCCCC;
+		platColor = startPlatColor;
 		changeTime = false;
 		changeTimer = 0;
 		speedTimer = 0;
 		bomb = false;
 		speed = false;
 		dropSpeed = 1;
-		startPlatSpawnMod = 90;
+		startPlatSpawnMod = 100;
 		platSpawnMod = startPlatSpawnMod;
 		startUpSpawnMod = 1000;
 		upSpawnMod = startUpSpawnMod;
-		frameCounter = 0;
+		frameCounter = 1;
 		platforms = new Array<Platform>();
 		dude = new My_Dude();
 		score = new Score();
@@ -70,11 +74,31 @@ class GameCanvas extends Sprite
 	
 	public function act(e:Event):Void
 	{
-		//if (frameCounter % 1200)
-		//{
-			//changeTime = true;
-			//changeTimer = 300;
-		//}
+		if (frameCounter % 1800==0)
+		{
+			changeTime = true;
+			changeTimer = 300;
+			platColor = Std.random(0xFFFFFF);
+			if (platSpawnMod >= 60)
+			{
+				platSpawnMod = platSpawnMod - 10;
+				//upSpawnMod = upSpawnMod;
+			}
+			else 
+			{
+				dude.speedK = .5;
+				platColor = 0x000000;
+			}
+			
+		}
+		if (changeTime == true)
+		{
+			changeTimer -= 1;
+			if (changeTimer <= 0)
+			{
+				changeTime = false;
+			}
+		}
 		Main.Bmain.menu.act();
 		dude.act();
 		upgrade.act();
@@ -91,7 +115,7 @@ class GameCanvas extends Sprite
 			platform.refresh(platformY);
 		}
 		
-		if (frameCounter % upSpawnMod == 0)
+		if (frameCounter % upSpawnMod == 0 && changeTime == false)
 		{
 			this.removeChild(upgrade);
 			upgrade = new Upgrade(Std.int(Math.random() * 2));
@@ -100,19 +124,19 @@ class GameCanvas extends Sprite
 			this.addChild(upgrade);
 		}
 		
-		if (frameCounter % platSpawnMod == 0)
+		if (frameCounter % platSpawnMod == 0 && changeTime == false)
 		{
 			var randomX = (Std.int(Math.random() * 720) + 40);
-			var p = new Platform(platformY,randomX,100,1);
+			var p = new Platform(platformY,randomX,100,1,platColor);
 			platforms.push(p);
 			this.addChild(p);
-			p = new Platform(platformY,randomX,100,2);
+			p = new Platform(platformY,randomX,100,2,platColor);
 			platforms.push(p);
 			this.addChild(p);
-			var p = new Platform(platformY,randomX,100,3);
+			var p = new Platform(platformY,randomX,100,3,platColor);
 			platforms.push(p);
 			this.addChild(p);
-			p = new Platform(platformY,randomX,100,4);
+			p = new Platform(platformY,randomX,100,4,platColor);
 			platforms.push(p);
 			this.addChild(p);
 		}
@@ -142,7 +166,11 @@ class GameCanvas extends Sprite
 			}
 			if (bomb == false)
 			{
-				Actuate.tween(bar, 3,{ y: -this.y+(dropSpeed*60*3)});
+				Actuate.tween(bar, 3, { y: -this.y + (dropSpeed * 60 * 3) } );
+				for (plateform in platforms)
+				{
+					plateform.killLevel = 480;
+				}
 			}
 		}
 		
@@ -152,6 +180,7 @@ class GameCanvas extends Sprite
 			if (speedTimer <= 0)
 			{
 				speed = false;
+				dude.gear();
 			}
 			dude.speedK = .6;
 		}
@@ -169,6 +198,7 @@ class GameCanvas extends Sprite
 			{
 				speed = true;
 				speedTimer = 300;
+				dude.color();
 			}
 			upgrade.y=-this.y+550;
 		}
@@ -215,6 +245,7 @@ class GameCanvas extends Sprite
 		this.y = 0;
 		upSpawnMod = startUpSpawnMod;
 		platSpawnMod = startPlatSpawnMod;
+		platColor = startPlatColor;
 		frameCounter = 0;
 		score.restart_s(0);
 		score.y = 0;
@@ -228,6 +259,7 @@ class GameCanvas extends Sprite
 		upgrade = new Upgrade(0);
 		upgrade.y = 500;
 		this.addChild(upgrade);
+		keys.pop();
 		
 	}
 	

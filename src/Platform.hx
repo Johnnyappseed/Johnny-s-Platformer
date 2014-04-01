@@ -11,11 +11,11 @@ class Platform extends Sprite
 	var part:Int;
 	public var killLevel:Int;
 	
-	public function new(y,Hx,Hw,part) 
+	public function new(y,Hx,Hw,part,color) 
 	{
 		super();
 		killLevel = 480;
-		this.graphics.beginFill(0xFFCCCC);
+		this.graphics.beginFill(color);
 		Hw = Std.int(Hw / 2);
 		this.part = part;
 		if (part == 1)

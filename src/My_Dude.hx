@@ -37,7 +37,7 @@ class My_Dude extends Sprite
 		
 		super();
 		speedK = .3;
-		image = new Bitmap(Assets.getBitmapData("img/C_Wheel_a.png"));
+		image = new Bitmap(Assets.getBitmapData("img/gear_a.png"));
 		spin = 0;
 		image.x = -20;
 		image.y = -20;
@@ -66,7 +66,9 @@ class My_Dude extends Sprite
 	
 	public function restart()
 	{
-		image = new Bitmap(Assets.getBitmapData("img/C_Wheel_a.png"));
+		image_Sprite.removeChild(image);
+		image = new Bitmap(Assets.getBitmapData("img/gear_a.png"));
+		image_Sprite.addChild(image);
 		spin = 0;
 		image.x = -20;
 		image.y = -20;
@@ -81,6 +83,30 @@ class My_Dude extends Sprite
 		vx = 0;
 		vy = 0;
 		count = 0;
+	}
+	
+	public function color()
+	{
+		image_Sprite.removeChild(image);
+		image = new Bitmap(Assets.getBitmapData("img/C_Wheel_a.png"));
+		image_Sprite.addChild(image);
+		spin = 0;
+		image.x = -20;
+		image.y = -20;
+		image.width = 40;
+		image.height = 40;
+	}
+	
+	public function gear()
+	{
+		image_Sprite.removeChild(image);
+		image = new Bitmap(Assets.getBitmapData("img/gear_a.png"));
+		image_Sprite.addChild(image);
+		spin = 0;
+		image.x = -20;
+		image.y = -20;
+		image.width = 40;
+		image.height = 40;
 	}
 	
 	public function left()
