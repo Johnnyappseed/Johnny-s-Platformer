@@ -262,6 +262,8 @@ class GameCanvas extends Sprite
 		upgrade.y = 500;
 		this.addChild(upgrade);
 		keys.pop();
+		bar.x = 400;
+		bar.y = 0;
 		
 	}
 	

@@ -30,6 +30,9 @@ class Menu extends Sprite
 	
 	public function new() 
 	{
+		var playbut = new Sprite();
+		playbut.graphics.beginFill(0xFFFFFF, .3);
+		playbut.graphics.drawRoundRect(310, 230, 75, 50, 4);
 		super();
 		mm = 100;
 		roll = false;
@@ -60,15 +63,19 @@ class Menu extends Sprite
         titleFormate.color=0xFFFFFF;
         playBox = new TextField();
         playBox.text = "Play!";
+		titleFormate.size = 65;
         playBox.setTextFormat(titleFormate);
+		playBox.x = 12;
+		playBox.y = 16;
         spriteBox.addChild(playBox);
+		this.addChild(playbut);
 		//playBox.width = 300;
 		//playBox.x = 50;
 		playBox.y = (playBox.height / 2)-(playBox.height/2);
 		spriteBox.x = 350+mm-140;
 		spriteBox.y = 230;
-		spriteBox.width = 200;
-		spriteBox.height = 60;
+		spriteBox.width = 75;
+		spriteBox.height = 50;
 		
 		var intro = new TextField();
 		intro.text = "Info: Left &\nRight Arrow Keys";

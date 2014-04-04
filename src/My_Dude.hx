@@ -62,7 +62,7 @@ class My_Dude extends Sprite
 		count = 0;
 		hitSprite = new Sprite();
 		//hitSprite.graphics.beginFill(0x00FF00);
-		hitSprite.graphics.drawCircle(0, 0, 16);
+		hitSprite.graphics.drawCircle(0, 0, 18);
 		hitSprite.mouseEnabled = false;
 		this.addChild(hitSprite);
 		
