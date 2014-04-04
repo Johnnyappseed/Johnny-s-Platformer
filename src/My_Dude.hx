@@ -29,6 +29,8 @@ class My_Dude extends Sprite
 	var rotate:Int;
 	var image:Bitmap;
 	public var speedK:Float;
+	public var startSpeedK:Float;
+	var restartSpeedK:Float;
 	
 	
 	public function new() 
@@ -36,7 +38,9 @@ class My_Dude extends Sprite
 		//var spritesheet:spritesheet = BitmapImporter.create(Assets.getBitmapData("img/kit_from_firefox.png"), 3, 9, 56, 80);
 		
 		super();
-		speedK = .3;
+		restartSpeedK = .3;
+		startSpeedK = restartSpeedK;
+		speedK = startSpeedK;
 		image = new Bitmap(Assets.getBitmapData("img/gear_a.png"));
 		spin = 0;
 		image.x = -20;
@@ -145,7 +149,7 @@ class My_Dude extends Sprite
 	public function act()
 	{
 		count += 1;
-		speedK = .3;
+		speedK = startSpeedK;
 		
 		//this.graphics.clear();
 		//var m:Matrix = new Matrix();

@@ -34,8 +34,19 @@ class Platform extends Sprite
 		{
 			this.graphics.drawRoundRect( 800, 0, 10, 70, 10, 4);
 		}
+		if (part == 5)
+		{
+			this.graphics.drawRoundRect( 800, 0, 10, 400, 10, 4);
+		}
+		if (part == 6)
+		{
+			this.graphics.drawRoundRect( -10, 0, 10, 400, 10, 4);
+		}
+		
+		
 		this.x = 0;
 		this.y = y;
+		
 	}
 	
 	public function refresh(y:Float)
