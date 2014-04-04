@@ -50,6 +50,8 @@ class Main extends Sprite
 		
 		menu = new Menu();
 		this.addChild(menu);
+		var background = Assets.getSound("music/dWind.mp3");
+		background.play(0,-1);
 		
 		addEventListener(Event.ADDED_TO_STAGE, added);
 	}
