@@ -23,7 +23,7 @@ class GameCanvas extends Sprite
 	var upSpawnMod:Int;
 	var startUpSpawnMod:Int;
 	var frameCounter:Int;
-	var dropSpeed:Int;
+	var dropSpeed:Float;
 	public var upgrade:Upgrade;
 	var bomb:Bool;
 	var speed:Bool;
@@ -74,6 +74,7 @@ class GameCanvas extends Sprite
 	
 	public function act(e:Event):Void
 	{
+		var platformY = -(this.y - 480);
 		if (frameCounter % 1800==0)
 		{
 			changeTime = true;
@@ -82,17 +83,20 @@ class GameCanvas extends Sprite
 			if (platSpawnMod >= 60)
 			{
 				platSpawnMod = platSpawnMod - 10;
-				//upSpawnMod = upSpawnMod;
+				upSpawnMod = upSpawnMod + 30;
 			}
-			else 
-			{
-				dude.speedK = .5;
-				platColor = 0x000000;
-			}
-			
+			var randomX = (Std.int(Math.random() * 720) + 40);
+			var p = new Platform(platformY,randomX,100,5,platColor);
+			platforms.push(p);
+			this.addChild(p);
+			p = new Platform(platformY,randomX,100,6,platColor);
+			platforms.push(p);
+			this.addChild(p);
 		}
+		dude.act();
 		if (changeTime == true)
 		{
+			dude.speedK = .5;
 			changeTimer -= 1;
 			if (changeTimer <= 0)
 			{
@@ -100,7 +104,6 @@ class GameCanvas extends Sprite
 			}
 		}
 		Main.Bmain.menu.act();
-		dude.act();
 		upgrade.act();
 		this.y = this.y - dropSpeed;
 		score.y = score.y + dropSpeed;
@@ -108,7 +111,6 @@ class GameCanvas extends Sprite
 		
 		frameCounter += 1;
 		
-		var platformY = -(this.y - 480);
 		
 		for (platform in platforms)
 		{
