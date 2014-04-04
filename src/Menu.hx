@@ -67,6 +67,8 @@ class Menu extends Sprite
 		playBox.y = (playBox.height / 2)-(playBox.height/2);
 		spriteBox.x = 350+mm-140;
 		spriteBox.y = 230;
+		spriteBox.width = 200;
+		spriteBox.height = 60;
 		
 		var intro = new TextField();
 		intro.text = "Info: Left &\nRight Arrow Keys";
@@ -74,7 +76,7 @@ class Menu extends Sprite
 		titleFormate.size = 30;
 		intro.setTextFormat(titleFormate);
 		intro.x = 0;
-		intro.y = 300;
+		intro.y = 400;
 		
 		score = new Score();
 		score.restart_M(GameCanvas.game.score.bestScore);
@@ -88,7 +90,7 @@ class Menu extends Sprite
 		this.addChild(intro);
 		
 		this.width = 800;
-		this.height = 480;
+		this.height = 500;
 		this.graphics.beginFill(0x000000, 1.0);
 		this.graphics.drawRect(0, 0,800,480);
 		
